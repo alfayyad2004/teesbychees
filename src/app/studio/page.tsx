@@ -24,48 +24,91 @@ export default function StudioPage() {
   return (
     <div className="pt-0 min-h-screen bg-tbc-black">
       {/* Header Bar */}
-      <div className="bg-tbc-black text-white px-5 md:px-8 py-4 pt-20 flex items-center justify-between border-b border-tbc-grey-700">
-        <div className="flex items-center gap-4">
-          <span
-            className="text-xl tracking-[-0.02em]"
-            style={{ fontFamily: "'Bodoni Moda', serif", fontStyle: "italic", fontWeight: 700 }}
-          >
-            Tbc
-          </span>
-          <span className="w-px h-5 bg-tbc-grey-700" />
-          <span className="mono text-tbc-grey-500">The Studio</span>
+      <div className="bg-tbc-black text-white px-4 md:px-8 py-4 pt-[80px] flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-tbc-grey-700">
+        <div className="flex items-center justify-between w-full md:w-auto">
+          <div className="flex items-center gap-3 md:gap-4">
+            <span
+              className="text-lg md:text-xl tracking-[-0.02em]"
+              style={{ fontFamily: "var(--font-bodoni)", fontStyle: "italic", fontWeight: 400 }}
+            >
+              Tbc
+            </span>
+            <span className="w-px h-4 md:h-5 bg-tbc-grey-700" />
+            <span className="mono text-tbc-grey-500 text-xs md:text-sm">The Studio</span>
+          </div>
+          <div className="md:hidden">
+            <span className="mono text-tbc-grey-500 text-xs">TTD $7.50/in</span>
+          </div>
         </div>
-        <div className="flex items-center gap-4">
-          <span className="text-[10px] tracking-[0.2em] uppercase text-tbc-grey-500">
+        <div className="flex items-center justify-between md:justify-end gap-4 w-full md:w-auto">
+          <span className="text-[9px] md:text-[10px] tracking-[0.2em] uppercase text-tbc-grey-500">
             <span className="text-green-400">●</span> Live 3D Preview
           </span>
-          <span className="mono text-tbc-grey-500">TTD $7.50/in</span>
+          <span className="hidden md:inline mono text-tbc-grey-500 text-sm">TTD $7.50/in</span>
         </div>
       </div>
 
       {/* Main Layout */}
-      <div className="flex flex-col lg:flex-row" style={{ height: "calc(100vh - 76px)" }}>
-        {/* 3D Canvas — Left/Main */}
-        <div className="flex-1 relative">
+      <div className="flex flex-col lg:flex-row-reverse min-h-[calc(100vh-76px)] lg:h-[calc(100vh-76px)]">
+        {/* 3D Canvas — Right/Main */}
+        <div className="w-full h-[55vh] lg:h-full lg:flex-1 relative sticky top-0 lg:static z-10">
           <Suspense
             fallback={
-              <div className="w-full h-[60vh] lg:h-full flex items-center justify-center" style={{ background: "linear-gradient(180deg, #1a1a1a, #0f0f0f)" }}>
+              <div className="w-full h-full flex items-center justify-center" style={{ background: "linear-gradient(180deg, #1a1a1a, #0f0f0f)" }}>
                 <div className="w-10 h-10 border-2 border-tbc-grey-700 border-t-white rounded-full animate-spin" />
               </div>
             }
           >
-            <div className="h-[60vh] lg:h-full">
+            <div className="w-full h-full relative bg-tbc-black">
               <GarmentCanvas />
+              
+              {/* Bottom-center floating bar */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 md:gap-4 bg-[#0e0e16]/80 backdrop-blur-md px-4 md:px-6 py-2 md:py-3 rounded-full border border-white/10 shadow-2xl whitespace-nowrap">
+                <BottomControls />
+              </div>
             </div>
           </Suspense>
         </div>
 
-        {/* Controls Panel — Right/Bottom */}
-        <div className="w-full lg:w-[380px] xl:w-[420px] bg-tbc-white border-l border-tbc-grey-200 overflow-y-auto max-h-[40vh] lg:max-h-none">
+        {/* Controls Panel — Left/Bottom */}
+        <div className="w-full lg:w-[380px] xl:w-[420px] bg-[#0e0e16] text-white lg:border-r border-white/10 lg:overflow-y-auto relative z-20 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] lg:shadow-none pb-20 lg:pb-0">
           <ControlsPanel />
           <PricingPanel />
         </div>
       </div>
     </div>
+  );
+}
+
+// Client component wrapper for Zustand state
+import { useDesignStore } from "@/store/designStore";
+import { Camera, Wind, Rotate3D } from "lucide-react";
+
+function BottomControls() {
+  const { autoRotate, setAutoRotate, windEnabled, setWindEnabled } = useDesignStore();
+
+  return (
+    <>
+      <button 
+        onClick={() => setAutoRotate(!autoRotate)}
+        className={`flex items-center gap-2 text-xs uppercase tracking-widest transition-colors ${autoRotate ? "text-white" : "text-white/50 hover:text-white"}`}
+      >
+        <Rotate3D size={16} /> Auto
+      </button>
+      <div className="w-px h-4 bg-white/20" />
+      <button 
+        onClick={() => setWindEnabled(!windEnabled)}
+        className={`flex items-center gap-2 text-xs uppercase tracking-widest transition-colors ${windEnabled ? "text-white" : "text-white/50 hover:text-white"}`}
+      >
+        <Wind size={16} /> Wind
+      </button>
+      <div className="w-px h-4 bg-white/20" />
+      <button 
+        onClick={() => window.dispatchEvent(new Event("tbc:export-mockup"))}
+        className="flex items-center gap-2 text-xs uppercase tracking-widest text-white/80 hover:text-white transition-colors"
+      >
+        <Camera size={16} /> 2K Export
+      </button>
+    </>
   );
 }
