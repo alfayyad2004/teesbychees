@@ -22,13 +22,13 @@ export function Footer() {
           </div>
           <h4
             className="text-[40px] md:text-[56px] tracking-[-0.02em] leading-[0.9]"
-            style={{ fontFamily: "'Bodoni Moda', serif", fontStyle: "italic", fontWeight: 400 }}
+            style={{ fontFamily: "var(--font-bodoni), serif", fontStyle: "italic", fontWeight: 400 }}
           >
             Wear yours.<br />Every day.
           </h4>
           <p
             className="text-[13px] text-tbc-grey-300 mt-6 leading-[1.6] max-w-[360px]"
-            style={{ fontFamily: "'Inter Tight', sans-serif" }}
+            style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
             Teesbychees — custom graphics, printed in Trinidad. Established 2023.
           </p>
@@ -37,7 +37,7 @@ export function Footer() {
         {/* Visit */}
         <div>
           <h5 className="mono text-tbc-grey-500 mb-5">Visit</h5>
-          <div className="text-[13px] text-tbc-grey-300 leading-[1.8]" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+          <div className="text-[13px] text-tbc-grey-300 leading-[1.8]" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
             <p>#220 Southern Main Road</p>
             <p>Marabella, San Fernando</p>
             <p>Trinidad &amp; Tobago</p>
@@ -47,7 +47,7 @@ export function Footer() {
         {/* Contact */}
         <div>
           <h5 className="mono text-tbc-grey-500 mb-5">Contact</h5>
-          <div className="space-y-0" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+          <div className="space-y-0" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
             <a href="tel:+18683694700" className="block text-[13px] text-tbc-grey-300 leading-[1.8] no-underline hover:text-white transition-colors">
               1 (868) 369-4700
             </a>
@@ -63,7 +63,7 @@ export function Footer() {
         {/* Shop */}
         <div>
           <h5 className="mono text-tbc-grey-500 mb-5">Shop</h5>
-          <div className="space-y-0" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+          <div className="space-y-0" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
             {[
               { name: "Tees", href: "/shop/t-shirts" },
               { name: "Hoodies", href: "/shop/hoodies" },
@@ -86,10 +86,10 @@ export function Footer() {
 
       {/* Bottom */}
       <div className="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-        <span className="text-[11px] text-tbc-grey-500 tracking-[0.15em] uppercase" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+        <span className="text-[11px] text-tbc-grey-500 tracking-[0.15em] uppercase" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
           © 2026 Teesbychees · Est. 2023
         </span>
-        <span className="text-[11px] text-tbc-grey-500 tracking-[0.15em] uppercase" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+        <span className="text-[11px] text-tbc-grey-500 tracking-[0.15em] uppercase" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
           Wear Yours ✦ Wear Yours ✦ Wear Yours
         </span>
       </div>

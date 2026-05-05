@@ -18,11 +18,11 @@ const lookbookItems = [
 ];
 
 const categories = [
-  { name: "Tees", href: "/shop/t-shirts", num: "01", color: "#0a0a0a", bg: "linear-gradient(180deg, #ededed, #d8d8d8)" },
-  { name: "Hoodies", href: "/shop/hoodies", num: "02", color: "#fff", bg: "linear-gradient(180deg, #1a1a1a, #0a0a0a)" },
-  { name: "Long Sleeve", href: "/shop/long-sleeves", num: "03", color: "#0a0a0a", bg: "linear-gradient(180deg, #c4c4c4, #a8a8a8)" },
-  { name: "Jerseys", href: "/shop/jerseys", num: "04", color: "#fff", bg: "linear-gradient(180deg, #2a2a2a, #1a1a1a)" },
-  { name: "Polos", href: "/shop/polos", num: "05", color: "#0a0a0a", bg: "linear-gradient(180deg, #f4f3f1, #e8e6e3)" },
+  { name: "Tees", href: "/shop/t-shirts", num: "01", image: "/products/tee-white-studio.jpg" },
+  { name: "Hoodies", href: "/shop/hoodies", num: "02", image: "/products/hoodie-black-front.jpg" },
+  { name: "Long Sleeve", href: "/shop/long-sleeves", num: "03", image: "/products/ls-white-front.jpg" },
+  { name: "Jerseys", href: "/shop/jerseys", num: "04", image: "/products/jersey-black-front.jpg" },
+  { name: "Polos", href: "/shop/polos", num: "05", image: "/products/polo-white-front.jpg" },
 ];
 
 export default function HomePage() {
@@ -56,21 +56,16 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
+              className="display"
               style={{
-                fontFamily: "'Bodoni Moda', serif",
-                fontWeight: 900,
                 fontSize: "clamp(80px, 13vw, 200px)",
-                letterSpacing: "-0.04em",
-                lineHeight: 0.85,
                 marginTop: "24px",
-                fontVariationSettings: '"opsz" 96',
-                fontOpticalSizing: "auto",
                 position: "relative",
                 zIndex: 1,
               }}
             >
               Wear<br />
-              <span style={{ fontStyle: "italic", fontWeight: 400 }}>yours.</span>
+              <span className="display-ital">yours.</span>
             </motion.h1>
 
             {/* Meta — description + N° directly under title */}
@@ -90,7 +85,7 @@ export default function HomePage() {
             >
               <p style={{
                 maxWidth: "320px",
-                fontFamily: "'Inter Tight', sans-serif",
+                fontFamily: "var(--font-inter), sans-serif",
                 fontSize: "13px",
                 lineHeight: 1.5,
                 color: "#333",
@@ -113,7 +108,7 @@ export default function HomePage() {
             className="mt-12 md:mt-0"
           >
             <Link href="/studio" className="btn-editorial">
-              Open the Studio <span style={{ fontFamily: "'Bodoni Moda', serif" }}>→</span>
+              Open the Studio <span style={{ fontFamily: "var(--font-bodoni), serif" }}>→</span>
             </Link>
           </motion.div>
         </div>
@@ -128,36 +123,7 @@ export default function HomePage() {
             }}
           />
 
-          {/* Hero Product */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="absolute flex items-center justify-center"
-            style={{
-              top: "50%", left: "50%", transform: "translate(-50%, -55%)",
-              width: "70%", aspectRatio: "3/4",
-              background: "linear-gradient(135deg, #1f1f1f, #0a0a0a)",
-              border: "1px solid #2a2a2a",
-            }}
-          >
-            <div className="tee-silhouette relative" style={{ width: "70%", aspectRatio: "1", background: "#fff" }}>
-              <span
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                style={{
-                  fontFamily: "'Bodoni Moda', serif",
-                  fontWeight: 900,
-                  fontSize: "64px",
-                  color: "#0a0a0a",
-                  letterSpacing: "-0.04em",
-                }}
-              >
-                TBC
-              </span>
-            </div>
-          </motion.div>
-
-          {/* Marquee */}
+          {/* Marquee (Placed behind product) */}
           <div className="absolute whitespace-nowrap overflow-hidden" style={{ bottom: "60px", left: "-10%", right: "-10%" }}>
             <div style={{ display: "inline-flex", animation: "marquee 40s linear infinite" }}>
               {Array(6).fill(null).map((_, i) => (
@@ -181,6 +147,35 @@ export default function HomePage() {
               ))}
             </div>
           </div>
+
+          {/* Hero Product */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, x: "-50%", y: "-55%" }}
+            animate={{ opacity: 1, scale: 1, x: "-50%", y: "-55%" }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="absolute flex items-center justify-center"
+            style={{
+              top: "50%", left: "50%",
+              width: "70%", aspectRatio: "3/4",
+              background: "linear-gradient(135deg, #1f1f1f, #0a0a0a)",
+              border: "1px solid #2a2a2a",
+            }}
+          >
+            <div className="tee-silhouette relative" style={{ width: "70%", aspectRatio: "1", background: "#fff" }}>
+              <span
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                style={{
+                  fontFamily: "var(--font-bodoni), serif",
+                  fontWeight: 900,
+                  fontSize: "64px",
+                  color: "#0a0a0a",
+                  letterSpacing: "-0.04em",
+                }}
+              >
+                TBC
+              </span>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -220,22 +215,26 @@ export default function HomePage() {
             >
               <Link href={cat.href} className="block group no-underline">
                 <div
-                  className="aspect-[3/4] relative overflow-hidden transition-transform duration-600 group-hover:scale-[0.98]"
-                  style={{ background: cat.bg }}
+                  className="aspect-[3/4] relative overflow-hidden transition-transform duration-600 group-hover:scale-[0.98] bg-[#f4f3f1]"
                 >
-                  {/* Tee silhouette */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] aspect-square">
-                    <div
-                      className="tee-silhouette w-full h-full opacity-85"
-                      style={{ background: cat.color }}
-                    />
-                  </div>
+                  {/* Actual Photo */}
+                  <Image
+                    src={cat.image}
+                    alt={cat.name}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 20vw"
+                    style={{ objectFit: "cover" }}
+                    className="transition-transform duration-700 group-hover:scale-105"
+                  />
+
+                  {/* Gradient Overlay for Text Readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90" />
 
                   {/* Info */}
-                  <div className="absolute bottom-5 left-5 right-5 flex justify-between items-end" style={{ color: cat.color }}>
+                  <div className="absolute bottom-5 left-5 right-5 flex justify-between items-end text-white">
                     <span
                       className="text-[22px] tracking-[-0.01em]"
-                      style={{ fontFamily: "'Bodoni Moda', serif", fontStyle: "italic", fontWeight: 400 }}
+                      style={{ fontFamily: "var(--font-bodoni), serif", fontStyle: "italic", fontWeight: 400 }}
                     >
                       {cat.name}
                     </span>
@@ -320,7 +319,7 @@ export default function HomePage() {
                   <span>{item.step}</span>
                   <span
                     className="text-tbc-grey-500"
-                    style={{ fontFamily: "'Bodoni Moda', serif", fontStyle: "italic", textTransform: "none", letterSpacing: "normal" }}
+                    style={{ fontFamily: "var(--font-bodoni), serif", fontStyle: "italic", textTransform: "none", letterSpacing: "normal" }}
                   >
                     {item.detail}
                   </span>
@@ -330,7 +329,7 @@ export default function HomePage() {
             </ul>
 
             <Link href="/studio" className="btn-editorial-white mt-10">
-              Open Studio <span style={{ fontFamily: "'Bodoni Moda', serif" }}>→</span>
+              Open Studio <span style={{ fontFamily: "var(--font-bodoni), serif" }}>→</span>
             </Link>
           </motion.div>
 
@@ -353,7 +352,7 @@ export default function HomePage() {
               <div className="tee-silhouette w-48 h-48 bg-white mx-auto flex items-center justify-center">
                 <span
                   className="text-tbc-black text-4xl"
-                  style={{ fontFamily: "'Bodoni Moda', serif", fontWeight: 900 }}
+                  style={{ fontFamily: "var(--font-bodoni), serif", fontWeight: 900 }}
                 >
                   Tbc
                 </span>
@@ -489,7 +488,7 @@ function InlineCalculator() {
             setLength(Math.min(20, Math.max(1, parseFloat(e.target.value) || 1)))
           }
           className="w-[90px] p-2.5 border border-tbc-black text-right text-[18px] outline-none"
-          style={{ fontFamily: "'Bodoni Moda', serif" }}
+          style={{ fontFamily: "var(--font-bodoni), serif" }}
         />
         <span className="text-[13px] text-tbc-mute">in</span>
       </div>
@@ -508,7 +507,7 @@ function InlineCalculator() {
         {/* Total */}
         <div className="mt-4 pt-4 border-t border-tbc-line flex justify-between items-baseline">
           <span className="mono">Print cost</span>
-          <span style={{ fontFamily: "'Bodoni Moda', serif", fontWeight: 900, fontSize: "56px", letterSpacing: "-0.03em" }}>
+          <span style={{ fontFamily: "var(--font-bodoni), serif", fontWeight: 900, fontSize: "56px", letterSpacing: "-0.03em" }}>
             <span className="text-[18px] font-normal align-top mr-1.5">TTD$</span>
             {total.toFixed(2)}
           </span>

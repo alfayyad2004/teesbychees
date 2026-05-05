@@ -26,6 +26,23 @@ export const metadata: Metadata = {
   },
 };
 
+import { Bodoni_Moda, Inter_Tight } from 'next/font/google';
+
+const bodoni = Bodoni_Moda({
+  subsets: ['latin'],
+  weight: ['400', '700', '900'],
+  style: ['normal', 'italic'],
+  variable: '--font-bodoni',
+  display: 'swap',
+});
+
+const interTight = Inter_Tight({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,19 +50,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400&family=Inter+Tight:wght@300;400;500;600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="min-h-full bg-tbc-white text-tbc-black antialiased" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+      <body className={`${interTight.variable} ${bodoni.variable} min-h-full bg-tbc-white text-tbc-black antialiased`} style={{ fontFamily: "var(--font-inter), sans-serif" }}>
         <Navbar />
         <main>{children}</main>
         <Footer />

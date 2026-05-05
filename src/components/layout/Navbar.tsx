@@ -32,7 +32,7 @@ export function Navbar() {
           <button
             onClick={() => setMenuOpen(true)}
             className="bg-transparent border-none text-inherit cursor-pointer"
-            style={{ fontFamily: "'Inter Tight', sans-serif", fontWeight: 500, fontSize: "14px" }}
+            style={{ fontFamily: "var(--font-inter), sans-serif", fontWeight: 500, fontSize: "14px" }}
             aria-label="Open menu"
             id="nav-menu-btn"
           >
@@ -40,7 +40,7 @@ export function Navbar() {
           </button>
           <button
             className="hidden md:block bg-transparent border-none text-inherit cursor-pointer"
-            style={{ fontFamily: "'Inter Tight', sans-serif", fontWeight: 400, fontSize: "14px" }}
+            style={{ fontFamily: "var(--font-inter), sans-serif", fontWeight: 400, fontSize: "14px" }}
           >
             Search
           </button>
@@ -63,21 +63,21 @@ export function Navbar() {
           <Link
             href="/help"
             className="hidden md:block text-inherit no-underline"
-            style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: "14px" }}
+            style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "14px" }}
           >
             Help
           </Link>
           <Link
             href="/account"
             className="hidden md:block text-inherit no-underline"
-            style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: "14px" }}
+            style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "14px" }}
           >
             Log In
           </Link>
           <Link
             href="/cart"
             className="flex items-center gap-1.5 text-inherit no-underline"
-            style={{ fontFamily: "'Inter Tight', sans-serif", fontSize: "14px" }}
+            style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "14px" }}
             id="nav-cart"
           >
             Bag{" "}
