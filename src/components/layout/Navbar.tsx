@@ -74,9 +74,9 @@ export function Navbar() {
           >
             Log In
           </Link>
-          <Link
-            href="/cart"
-            className="flex items-center gap-1.5 text-inherit no-underline"
+          <button
+            onClick={() => useCartStore.getState().openCart()}
+            className="flex items-center gap-1.5 bg-transparent border-none text-inherit cursor-pointer p-0"
             style={{ fontFamily: "var(--font-inter), sans-serif", fontSize: "14px" }}
             id="nav-cart"
           >
@@ -87,7 +87,7 @@ export function Navbar() {
             >
               {cartCount}
             </span>
-          </Link>
+          </button>
         </div>
       </nav>
 

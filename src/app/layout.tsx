@@ -1,7 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   title: "TBC — Teesbychees · Wear Yours",
@@ -43,6 +49,8 @@ const interTight = Inter_Tight({
   display: 'swap',
 });
 
+import { CartDrawer } from "@/components/cart/CartDrawer";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -54,6 +62,7 @@ export default function RootLayout({
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <CartDrawer />
       </body>
     </html>
   );

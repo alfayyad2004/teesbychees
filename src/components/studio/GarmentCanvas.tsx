@@ -325,11 +325,19 @@ function RealisticTShirt({ onDragChange }: { onDragChange: (v: boolean) => void 
    ═══════════════════════════════════════════════════════ */
 export function GarmentCanvas() {
   const [isDragging, setIsDragging] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const { activeGraphicId } = useDesignStore();
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   return (
     <div
-      className="w-full h-full"
+      className="w-full h-full touch-none"
       style={{ cursor: isDragging ? "grabbing" : activeGraphicId ? "grab" : "default" }}
     >
       <Canvas
@@ -341,12 +349,15 @@ export function GarmentCanvas() {
           toneMappingExposure: 1.0,
           preserveDrawingBuffer: true,
         }}
-        dpr={[1, 2]}
+        dpr={[1, isMobile ? 1.5 : 2]}
+        performance={{ min: 0.5 }}
       >
         <ExportHandler />
         <Environment preset="studio" background={false} />
         <RealisticTShirt onDragChange={setIsDragging} />
-        <ContactShadows position={[0, -1.5, 0]} opacity={0.3} scale={5} blur={2.5} far={3} color="#000000" />
+        {!isMobile && (
+          <ContactShadows position={[0, -1.5, 0]} opacity={0.3} scale={5} blur={2.5} far={3} color="#000000" />
+        )}
         <OrbitControls
           enabled={!isDragging}
           enablePan={false}

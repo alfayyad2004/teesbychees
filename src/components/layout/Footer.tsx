@@ -86,12 +86,21 @@ export function Footer() {
 
       {/* Bottom */}
       <div className="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-        <span className="text-[11px] text-tbc-grey-500 tracking-[0.15em] uppercase" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
+        <span className="text-[11px] text-tbc-grey-500 tracking-[0.15em] uppercase text-center md:text-left" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
           © 2026 Teesbychees · Est. 2023
         </span>
-        <span className="text-[11px] text-tbc-grey-500 tracking-[0.15em] uppercase" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
+        <span className="text-[11px] text-tbc-grey-500 tracking-[0.15em] uppercase text-center" style={{ fontFamily: "var(--font-inter), sans-serif" }}>
           Wear Yours ✦ Wear Yours ✦ Wear Yours
         </span>
+        <a 
+          href="https://caribbeancodestudios.com" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-[11px] text-tbc-grey-500 tracking-[0.15em] uppercase hover:text-white transition-colors text-center md:text-right" 
+          style={{ fontFamily: "var(--font-inter), sans-serif" }}
+        >
+          Developed by caribbeancodestudios.com
+        </a>
       </div>
     </footer>
   );

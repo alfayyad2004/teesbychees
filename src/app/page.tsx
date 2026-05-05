@@ -10,10 +10,10 @@ import { ProductCard } from "@/components/shop/ProductCard";
 /* ─── Editorial Images ─── */
 const lookbookItems = [
   { name: "Sinner — SS24", image: "/editorial/slot-machine.jpg", span: "col-span-5 row-span-5", bg: "linear-gradient(135deg, #1a1a1a, #2a0a0a)" },
-  { name: "Tennis Club — 2023", image: "/editorial/tennis-club.jpg", span: "col-span-4 row-span-3", bg: "linear-gradient(135deg, #f4f3f1, #d8d6d3)" },
+  { name: "Tennis Club — 2023", video: "/videos/lifestyle-1.mp4", span: "col-span-4 row-span-3", bg: "linear-gradient(135deg, #f4f3f1, #d8d6d3)" },
   { name: "Comic Pop — Kablam!", image: "/editorial/comic-pop.jpg", span: "col-span-3 row-span-5", bg: "linear-gradient(180deg, #0a1a2a, #001020)" },
   { name: "Windows 98 — Y2K", image: "/editorial/windows-98.jpg", span: "col-span-4 row-span-2", bg: "linear-gradient(135deg, #2a2a2a, #0a0a0a)" },
-  { name: "Tom & Jerry — Retro", image: "/editorial/tom-jerry.jpg", span: "col-span-3 row-span-3", bg: "linear-gradient(135deg, #c8c4be, #a8a4a0)" },
+  { name: "Streetwear — Vibe", video: "/videos/lifestyle-2.mp4", span: "col-span-3 row-span-3", bg: "linear-gradient(135deg, #c8c4be, #a8a4a0)" },
   { name: "Slot Machine — Hear Yours", image: "/editorial/slot-machine.jpg", span: "col-span-6 row-span-3", bg: "linear-gradient(135deg, #1a0a1a, #0a0010)" },
 ];
 
@@ -123,8 +123,8 @@ export default function HomePage() {
             }}
           />
 
-          {/* Marquee (Placed behind product) */}
-          <div className="absolute whitespace-nowrap overflow-hidden" style={{ bottom: "60px", left: "-10%", right: "-10%" }}>
+          {/* Marquee (Placed in front of product/video) */}
+          <div className="absolute whitespace-nowrap overflow-hidden z-10" style={{ bottom: "60px", left: "-10%", right: "-10%" }}>
             <div style={{ display: "inline-flex", animation: "marquee 40s linear infinite" }}>
               {Array(6).fill(null).map((_, i) => (
                 <span
@@ -148,33 +148,27 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Hero Product */}
+          {/* Hero Video */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, x: "-50%", y: "-55%" }}
             animate={{ opacity: 1, scale: 1, x: "-50%", y: "-55%" }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="absolute flex items-center justify-center"
+            className="absolute flex items-center justify-center overflow-hidden"
             style={{
               top: "50%", left: "50%",
               width: "70%", aspectRatio: "3/4",
-              background: "linear-gradient(135deg, #1f1f1f, #0a0a0a)",
+              background: "#000",
               border: "1px solid #2a2a2a",
             }}
           >
-            <div className="tee-silhouette relative" style={{ width: "70%", aspectRatio: "1", background: "#fff" }}>
-              <span
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-                style={{
-                  fontFamily: "var(--font-bodoni), serif",
-                  fontWeight: 900,
-                  fontSize: "64px",
-                  color: "#0a0a0a",
-                  letterSpacing: "-0.04em",
-                }}
-              >
-                TBC
-              </span>
-            </div>
+            <video
+              src="/videos/hero-video.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+            />
           </motion.div>
         </div>
       </section>
@@ -429,13 +423,24 @@ export default function HomePage() {
                 "col-span-6 row-span-3"
               }`}
             >
-              <Image
-                src={item.image}
-                alt={item.name}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-                sizes="(max-width: 768px) 50vw, 33vw"
-              />
+              {item.video ? (
+                <video
+                  src={item.video}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              ) : (
+                <Image
+                  src={item.image!}
+                  alt={item.name}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                />
+              )}
               <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors duration-500" />
               <span className="absolute bottom-3 left-3 text-[10px] tracking-[0.2em] uppercase text-white/90 z-10">
                 {item.name}

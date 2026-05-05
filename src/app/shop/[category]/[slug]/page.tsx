@@ -17,6 +17,7 @@ export default function ProductDetailPage({ params }: PDPProps) {
   const { category, slug } = use(params);
   const product = getProductBySlug(slug);
   const addItem = useCartStore((s) => s.addItem);
+  const openCart = useCartStore((s) => s.openCart);
 
   const [selectedSize, setSelectedSize] = useState("M");
   const [selectedColor, setSelectedColor] = useState(product?.colors[0] || "#0A0A0A");
@@ -52,6 +53,7 @@ export default function ProductDetailPage({ params }: PDPProps) {
       quantity,
     });
     setAdded(true);
+    openCart();
     setTimeout(() => setAdded(false), 2000);
   };
 

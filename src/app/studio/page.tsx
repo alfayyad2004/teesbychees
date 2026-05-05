@@ -50,8 +50,15 @@ export default function StudioPage() {
 
       {/* Main Layout */}
       <div className="flex flex-col lg:flex-row-reverse min-h-[calc(100vh-76px)] lg:h-[calc(100vh-76px)]">
-        {/* 3D Canvas — Right/Main */}
-        <div className="w-full h-[55vh] lg:h-full lg:flex-1 relative sticky top-0 lg:static z-10">
+
+        {/*
+          3D Canvas
+          Mobile: h-[55svh] (svh = small-viewport-height, excludes browser chrome),
+                  sticky top-[80px] keeps it pinned just below the fixed navbar
+                  while the user scrolls through the controls panel.
+          Desktop: lg:static lg:h-full fills the right column at full height.
+        */}
+        <div className="w-full h-[55svh] min-h-[260px] sticky top-[80px] lg:top-auto lg:static lg:h-full lg:flex-1 relative z-10">
           <Suspense
             fallback={
               <div className="w-full h-full flex items-center justify-center" style={{ background: "linear-gradient(180deg, #1a1a1a, #0f0f0f)" }}>
@@ -61,20 +68,31 @@ export default function StudioPage() {
           >
             <div className="w-full h-full relative bg-tbc-black">
               <GarmentCanvas />
-              
-              {/* Bottom-center floating bar */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 md:gap-4 bg-[#0e0e16]/80 backdrop-blur-md px-4 md:px-6 py-2 md:py-3 rounded-full border border-white/10 shadow-2xl whitespace-nowrap">
+
+              {/* Floating controls bar — bottom respects iPhone home-indicator safe area */}
+              <div
+                className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1 md:gap-3 bg-[#0e0e16]/80 backdrop-blur-md px-4 md:px-6 rounded-full border border-white/10 shadow-2xl whitespace-nowrap"
+                style={{
+                  bottom: "max(1.25rem, env(safe-area-inset-bottom, 1.25rem))",
+                  paddingTop: "0.625rem",
+                  paddingBottom: "0.625rem",
+                }}
+              >
                 <BottomControls />
               </div>
             </div>
           </Suspense>
         </div>
 
-        {/* Controls Panel — Left/Bottom */}
-        <div className="w-full lg:w-[380px] xl:w-[420px] bg-[#0e0e16] text-white lg:border-r border-white/10 lg:overflow-y-auto relative z-20 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] lg:shadow-none pb-20 lg:pb-0">
+        {/* Controls Panel — scrollable section below canvas on mobile */}
+        <div
+          className="w-full lg:w-[380px] xl:w-[420px] bg-[#0e0e16] text-white lg:border-r border-white/10 lg:overflow-y-auto relative z-20 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] lg:shadow-none"
+          style={{ paddingBottom: "max(5rem, env(safe-area-inset-bottom, 1.25rem))" }}
+        >
           <ControlsPanel />
           <PricingPanel />
         </div>
+
       </div>
     </div>
   );
@@ -89,25 +107,25 @@ function BottomControls() {
 
   return (
     <>
-      <button 
+      <button
         onClick={() => setAutoRotate(!autoRotate)}
-        className={`flex items-center gap-2 text-xs uppercase tracking-widest transition-colors ${autoRotate ? "text-white" : "text-white/50 hover:text-white"}`}
+        className={`flex items-center gap-1.5 text-[11px] uppercase tracking-widest transition-colors py-2 px-2 rounded-md active:bg-white/10 ${autoRotate ? "text-white" : "text-white/50"}`}
       >
-        <Rotate3D size={16} /> Auto
+        <Rotate3D size={15} /> Auto
       </button>
       <div className="w-px h-4 bg-white/20" />
-      <button 
+      <button
         onClick={() => setWindEnabled(!windEnabled)}
-        className={`flex items-center gap-2 text-xs uppercase tracking-widest transition-colors ${windEnabled ? "text-white" : "text-white/50 hover:text-white"}`}
+        className={`flex items-center gap-1.5 text-[11px] uppercase tracking-widest transition-colors py-2 px-2 rounded-md active:bg-white/10 ${windEnabled ? "text-white" : "text-white/50"}`}
       >
-        <Wind size={16} /> Wind
+        <Wind size={15} /> Wind
       </button>
       <div className="w-px h-4 bg-white/20" />
-      <button 
+      <button
         onClick={() => window.dispatchEvent(new Event("tbc:export-mockup"))}
-        className="flex items-center gap-2 text-xs uppercase tracking-widest text-white/80 hover:text-white transition-colors"
+        className="flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-white/80 py-2 px-2 rounded-md active:bg-white/10 transition-colors"
       >
-        <Camera size={16} /> 2K Export
+        <Camera size={15} /> 2K
       </button>
     </>
   );

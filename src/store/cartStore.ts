@@ -7,7 +7,10 @@ const FIVE_DAYS_MS = 5 * 24 * 60 * 60 * 1000;
 interface CartState {
   items: CartItem[];
   createdAt: number;
+  isOpen: boolean;
 
+  openCart: () => void;
+  closeCart: () => void;
   addItem: (item: Omit<CartItem, "id" | "lineTotal" | "totalPrintCost">) => void;
   removeItem: (id: string) => void;
   updateItemQuantity: (id: string, quantity: number) => void;
@@ -27,6 +30,10 @@ export const useCartStore = create<CartState>()(
     (set, get) => ({
       items: [],
       createdAt: Date.now(),
+      isOpen: false,
+
+      openCart: () => set({ isOpen: true }),
+      closeCart: () => set({ isOpen: false }),
 
       addItem: (item) =>
         set((state) => {
@@ -37,7 +44,7 @@ export const useCartStore = create<CartState>()(
             totalPrintCost: printCost,
             lineTotal: (item.basePrice + printCost) * item.quantity,
           };
-          return { items: [...state.items, newItem], createdAt: Date.now() };
+          return { items: [...state.items, newItem], createdAt: Date.now(), isOpen: true }; // Auto-open on add
         }),
 
       removeItem: (id) =>
@@ -71,6 +78,7 @@ export const useCartStore = create<CartState>()(
     }),
     {
       name: "tbc-cart",
+      partialize: (state) => ({ items: state.items, createdAt: state.createdAt }), // Don't persist isOpen
       onRehydrateStorage: () => (state) => {
         if (state && Date.now() - state.createdAt > FIVE_DAYS_MS) {
           state.clearCart();

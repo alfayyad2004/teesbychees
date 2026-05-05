@@ -1,6 +1,7 @@
 "use client";
 
 import { useDesignStore } from "@/store/designStore";
+import { useCartStore } from "@/store/cartStore";
 import { PRINT_RATE_PER_INCH, GARMENT_TYPES } from "@/lib/types";
 
 const BASE_PRICES: Record<string, number> = {
@@ -78,8 +79,38 @@ export function PricingPanel() {
         </span>
       </div>
 
+      {/* Add to Bag Action */}
+      <div className="mt-6">
+        <button 
+          onClick={() => {
+            const size = "M"; // Default to M or we could pull from a size selector state if added later
+            const color = useDesignStore.getState().color;
+            const placements = useDesignStore.getState().placements;
+            
+            useCartStore.getState().addItem({
+              productId: `custom-${garmentType}`,
+              productName: `Custom ${garmentLabel}`,
+              productImage: "/products/tee-white-studio.jpg", // fallback
+              size,
+              color,
+              basePrice,
+              graphics: placements.map(p => ({
+                zone: p.zone,
+                imageUrl: p.textureUrl || "",
+                lengthInches: p.lengthInches,
+                printCost: p.lengthInches * PRINT_RATE_PER_INCH
+              })),
+              quantity: 1
+            });
+          }}
+          className="w-full flex items-center justify-center gap-2 py-4 bg-tbc-black text-white hover:bg-tbc-black/90 transition-colors uppercase tracking-[0.1em] text-xs font-medium"
+        >
+          Add to Bag
+        </button>
+      </div>
+
       {/* Rate Info */}
-      <p className="text-[10px] text-tbc-grey-400 mt-3 leading-relaxed">
+      <p className="text-[10px] text-tbc-grey-400 mt-4 leading-relaxed text-center">
         Print pricing: TTD $7.50 per inch of graphic length (longest side). 
         Updates live as you resize your graphic.
       </p>
